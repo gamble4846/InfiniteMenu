@@ -1,0 +1,37 @@
+.MenuContainer {
+    width: 100%;
+    max-width: 90vw;
+    max-height: 90vh;
+    height: 100%;
+    border: 1px solid gray;
+    overflow: auto;
+}
+
+.OptionHead {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #001527;
+    cursor: pointer;
+}
+
+.OptionHead svg {
+    transition: transform 0.25s ease-out;
+    fill: currentColor;
+}
+
+.OptionBody {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.25s ease-out;
+}
+
+.OptionContainer.open>.OptionBody {
+    max-height: 1000px;
+    transition: max-height 0.25s ease-in;
+    overflow: auto;
+}
+
+.OptionContainer.open>.OptionHead svg {
+    transform: rotate(180deg);
+    transition: transform 0.25s ease-in;
+}
