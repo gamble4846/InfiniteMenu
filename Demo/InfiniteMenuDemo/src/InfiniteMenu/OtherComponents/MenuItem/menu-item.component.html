@@ -1,16 +1,40 @@
 <ng-container *ngIf="MenuModel">
     <div [ngClass]="{'open': Menu.IsOpen}" class="OptionContainer" *ngFor="let Menu of MenuModel" #OptionContainer [ngStyle]="{'background-color': GetBackgoundColor(Menu.MenuLoc) }">
-        <div class="OptionHead">
-            <div style="padding: 10px; flex-grow: 2;" (click)="HeaderSelected(Menu)">
-                <div></div>
-                <div>{{Menu.Title}}</div>
+        <div class="OptionHead" #OptionHead [ngStyle]="{'color': GetTextColor(Menu.MenuLoc) }" (mouseenter)="HoverOnMenu_MouseEnter(Menu, OptionHead)" (mouseleave)="HoverOnMenu_MouseLeave(Menu, OptionHead)">
+            <div style="padding: 10px; flex-grow: 2;display: flex; justify-content: left;" (click)="_MenuSelected(Menu)">
+                <div class="IconsContainer" [ngClass]="{'ShowOnlyIcon': ShowOnlyIcon}">
+                    <ng-container *ngIf="Menu.IconType == IconType.SVG && Menu.Icon">
+                        <div [innerHTML]="ByPassSecurityTrustHtml(Menu.Icon)" [ngStyle]="{ 'height': IconHeight, 'width': IconWidth }"></div>
+                    </ng-container>
+                    <ng-container *ngIf="Menu.IconType == IconType.FluentIcons && Menu.Icon">
+                        <div [innerHTML]="_InfiniteMenu.GetFluentUiIconsSvgName(Menu.Icon)" [ngStyle]="{ 'height': IconHeight, 'width': IconWidth }"></div>
+                    </ng-container>
+                    <ng-container *ngIf="Menu.IconType == IconType.Image && Menu.Icon">
+                        <img src="{{Menu.Icon}}" class="MenuIcon" [ngStyle]="{ 'height': IconHeight, 'width': IconWidth }">
+                    </ng-container>
+                    <ng-container *ngIf="!Menu.Icon && ShowOnlyIcon">
+                        <b>{{Menu.Title[0].toUpperCase()}}</b>
+                    </ng-container>
+                </div>
+                <div *ngIf="!ShowOnlyIcon" style="display: flex; justify-content: center;align-items: center;">{{Menu.Title}}</div>
             </div>
-            <ng-container *ngIf="Menu.Children.length > 0">
-                <div  style="padding: 10px;" (click)="ToggleOption(Menu.Id)"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 30 30"> <path d="M 24.990234 8.9863281 A 1.0001 1.0001 0 0 0 24.292969 9.2929688 L 15 18.585938 L 5.7070312 9.2929688 A 1.0001 1.0001 0 0 0 4.9902344 8.9902344 A 1.0001 1.0001 0 0 0 4.2929688 10.707031 L 14.292969 20.707031 A 1.0001 1.0001 0 0 0 15.707031 20.707031 L 25.707031 10.707031 A 1.0001 1.0001 0 0 0 24.990234 8.9863281 z"></path> </svg></div>
+            <ng-container *ngIf="Menu.Children.length > 0 || ShowOpenForAll">
+                <div style="padding: 10px; display: flex; justify-content: center;align-items: center;" (click)="ToggleOption(Menu.Id)"><svg class="ArrowIcon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 30 30"> <path d="M 24.990234 8.9863281 A 1.0001 1.0001 0 0 0 24.292969 9.2929688 L 15 18.585938 L 5.7070312 9.2929688 A 1.0001 1.0001 0 0 0 4.9902344 8.9902344 A 1.0001 1.0001 0 0 0 4.2929688 10.707031 L 14.292969 20.707031 A 1.0001 1.0001 0 0 0 15.707031 20.707031 L 25.707031 10.707031 A 1.0001 1.0001 0 0 0 24.990234 8.9863281 z"></path> </svg></div>
             </ng-container>
         </div>
         <div class="OptionBody">
-            <menu-item [MenuModel]="Menu.Children" [RGB]="RGB" [ShadeMultiplier]="ShadeMultiplier"></menu-item>
+            <menu-item 
+                [MenuModel]="Menu.Children" 
+                [RGB]="RGB" 
+                [ShadeMultiplier]="ShadeMultiplier" 
+                [ShowOpenForAll]="ShowOpenForAll"
+                [IconHeight]="IconHeight"
+                [IconWidth]="IconWidth"
+                [MenuColors]="MenuColors"
+                [ShowOnlyIcon]="ShowOnlyIcon"
+                (MenuSelected)="_MenuSelected($event)"
+                (MenuOpenCloseChanged)="_MenuOpenCloseChanged($event)"
+            ></menu-item>
         </div>
     </div>
 </ng-container>

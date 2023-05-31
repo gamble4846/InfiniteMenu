@@ -1,3 +1,24 @@
 <div class="MenuContainer">
-    <menu-item [MenuModel]="MenuModel" [RGB]="RGB" [ShadeMultiplier]="ShadeMultiplier"></menu-item>
+    <div class="OuterLoaderContainer" [ngClass]="{'show': Loading}">
+        <div class="LoaderContainer">
+            <div class="horizontalLinesLoader">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <menu-item 
+        [MenuModel]="MenuModel" 
+        [RGB]="RGB" 
+        [ShadeMultiplier]="ShadeMultiplier" 
+        [ShowOpenForAll]="ShowOpenForAll"
+        [IconHeight]="IconHeight"
+        [IconWidth]="IconWidth"
+        [MenuColors]="MenuColors"
+        [ShowOnlyIcon]="ShowOnlyIcon"
+        (MenuSelected)="_MenuSelected($event)"
+        (MenuOpenCloseChanged)="_MenuOpenCloseChanged($event)"
+    ></menu-item>
 </div>

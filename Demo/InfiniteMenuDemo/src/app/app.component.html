@@ -1,3 +1,17 @@
-<div style="height: 700px; width: 300px; color: white;">
-  <infinite-menu [MenuModel]="data" [RGB]="RGB_DATA" [ShadeMultiplier]="2"></infinite-menu>
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw;">
+  <div class="InfiniteMenuInnerContainer">
+    <infinite-menu #InfiniteMenu
+      [(MenuModel)]="data" 
+      [RGB]="RGB_DATA" 
+      [ShadeMultiplier]="2" 
+      [ShowOpenForAll]="false"
+      (MenuSelected)="_MenuSelected($event)"
+      (MenuOpenCloseChanged)="_MenuOpenCloseChanged($event)"
+      [IconHeight]="'25px'"
+      [IconWidth]="'25px'"
+      [MenuColors]="MenuColors"
+      [Loading]="false"
+      [ShowOnlyIcon]="false"
+    ></infinite-menu>
+  </div>
 </div>

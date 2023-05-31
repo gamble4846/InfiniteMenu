@@ -1,0 +1,73 @@
+@import "./Loader.css";
+
+.MenuContainer {
+  width: 100%;
+  max-width: 90vw;
+  max-height: 90vh;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+}
+
+.OptionHead {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #001527;
+  cursor: pointer;
+}
+
+.OptionHead svg {
+  transition: transform 0.25s ease-out;
+  fill: currentColor;
+}
+
+.OptionBody {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease-out;
+}
+
+.OptionContainer.open>.OptionBody {
+  max-height: 1000px;
+  transition: max-height 0.25s ease-in;
+  overflow: auto;
+}
+
+.OptionContainer.open>.OptionHead .ArrowIcon {
+  transform: rotate(180deg);
+  transition: transform 0.25s ease-in;
+}
+
+.IconsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
+}
+
+.IconsContainer svg {
+  fill: currentColor !important;
+  height: 100%;
+  width: 100%;
+}
+
+.MenuContainer .OuterLoaderContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(100% - 40px);
+  width: 100%;
+  padding: 20px 0px;
+  background-color: #0000008c;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.MenuContainer .OuterLoaderContainer.show {
+  display: flex;
+}
+
+.ShowOnlyIcon {
+  width: 100%;
+}

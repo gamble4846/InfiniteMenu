@@ -1,0 +1,8 @@
+.InfiniteMenuInnerContainer{
+    height: 700px; 
+    width: 300px; 
+    color: white; 
+    background-color: rgb(235, 235, 235); 
+    max-width: 90vw;
+    max-height: 90vh;
+}
