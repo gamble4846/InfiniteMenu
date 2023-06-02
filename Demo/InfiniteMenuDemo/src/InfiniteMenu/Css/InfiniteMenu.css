@@ -2,8 +2,6 @@
 
 .MenuContainer {
   width: 100%;
-  max-width: 90vw;
-  max-height: 90vh;
   height: 100%;
   overflow: auto;
   position: relative;
@@ -28,7 +26,6 @@
 }
 
 .OptionContainer.open>.OptionBody {
-  max-height: 1000px;
   transition: max-height 0.25s ease-in;
   overflow: auto;
 }
@@ -70,4 +67,20 @@
 
 .ShowOnlyIcon {
   width: 100%;
+}
+
+.MenuTitleContainer{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.MenuTitleContainer span{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
 }

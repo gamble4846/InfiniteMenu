@@ -1,7 +1,7 @@
 <ng-container *ngIf="MenuModel">
     <div [ngClass]="{'open': Menu.IsOpen}" class="OptionContainer" *ngFor="let Menu of MenuModel" #OptionContainer [ngStyle]="{'background-color': GetBackgoundColor(Menu.MenuLoc) }">
         <div class="OptionHead" #OptionHead [ngStyle]="{'color': GetTextColor(Menu.MenuLoc) }" (mouseenter)="HoverOnMenu_MouseEnter(Menu, OptionHead)" (mouseleave)="HoverOnMenu_MouseLeave(Menu, OptionHead)">
-            <div style="padding: 10px; flex-grow: 2;display: flex; justify-content: left;" (click)="_MenuSelected(Menu)">
+            <div style="padding: 10px; flex-grow: 2;display: flex; justify-content: left;" (click)="_MenuSelected(Menu)" [ngStyle]="{'padding-left': 'calc(10px + ' + GetPadding(Menu.MenuLoc) +')', 'width': GetMenuHeadWithWithOUtArrow(Menu)}">
                 <div class="IconsContainer" [ngClass]="{'ShowOnlyIcon': ShowOnlyIcon}">
                     <ng-container *ngIf="Menu.IconType == IconType.SVG && Menu.Icon">
                         <div [innerHTML]="ByPassSecurityTrustHtml(Menu.Icon)" [ngStyle]="{ 'height': IconHeight, 'width': IconWidth }"></div>
@@ -16,13 +16,15 @@
                         <b>{{Menu.Title[0].toUpperCase()}}</b>
                     </ng-container>
                 </div>
-                <div *ngIf="!ShowOnlyIcon" style="display: flex; justify-content: center;align-items: center;">{{Menu.Title}}</div>
+                <div *ngIf="!ShowOnlyIcon" class="MenuTitleContainer" [ngStyle]="{'width': GetMenuTitleWidth(Menu)}">
+                    <span>{{Menu.Title}}</span>
+                </div>
             </div>
             <ng-container *ngIf="Menu.Children.length > 0 || ShowOpenForAll">
                 <div style="padding: 10px; display: flex; justify-content: center;align-items: center;" (click)="ToggleOption(Menu.Id)"><svg class="ArrowIcon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 30 30"> <path d="M 24.990234 8.9863281 A 1.0001 1.0001 0 0 0 24.292969 9.2929688 L 15 18.585938 L 5.7070312 9.2929688 A 1.0001 1.0001 0 0 0 4.9902344 8.9902344 A 1.0001 1.0001 0 0 0 4.2929688 10.707031 L 14.292969 20.707031 A 1.0001 1.0001 0 0 0 15.707031 20.707031 L 25.707031 10.707031 A 1.0001 1.0001 0 0 0 24.990234 8.9863281 z"></path> </svg></div>
             </ng-container>
         </div>
-        <div class="OptionBody">
+        <div class="OptionBody" [ngStyle]="{'max-height': GetOptionBodyHeight(Menu)}">
             <menu-item 
                 [MenuModel]="Menu.Children" 
                 [RGB]="RGB" 
@@ -30,8 +32,9 @@
                 [ShowOpenForAll]="ShowOpenForAll"
                 [IconHeight]="IconHeight"
                 [IconWidth]="IconWidth"
-                [MenuColors]="MenuColors"
+                [MenuStyles]="MenuStyles"
                 [ShowOnlyIcon]="ShowOnlyIcon"
+                [SingleMenuHeight]="SingleMenuHeight"
                 (MenuSelected)="_MenuSelected($event)"
                 (MenuOpenCloseChanged)="_MenuOpenCloseChanged($event)"
             ></menu-item>

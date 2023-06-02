@@ -21,8 +21,9 @@ export enum IconType {
     Image
 }
 
-export interface MenuColors{
+export interface MenuStyles{
     Location:number,
     BackgroundColor:string,
     TextColor:string,
+    PaddingLeft:string,
 }

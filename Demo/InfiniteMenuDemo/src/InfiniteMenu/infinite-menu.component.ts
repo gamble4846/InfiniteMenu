@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { MenuColors, MenuData, RGBModel } from './Models/Models';
+import { MenuStyles, MenuData, RGBModel } from './Models/Models';
 
 @Component({
   selector: 'infinite-menu',
@@ -13,9 +13,10 @@ export class InfiniteMenuComponent {
   @Input() ShowOpenForAll: boolean = false;
   @Input() IconHeight: string = "25px";
   @Input() IconWidth: string = "25px";
-  @Input() MenuColors:Array<MenuColors> =[];
+  @Input() MenuStyles:Array<MenuStyles> =[];
   @Input() Loading: boolean = false;
   @Input() ShowOnlyIcon: boolean = false;
+  @Input() SingleMenuHeight: number = 45;
 
   @Output() MenuModelChange = new EventEmitter<Array<MenuData>>();
   @Output() MenuSelected = new EventEmitter<MenuData>();
