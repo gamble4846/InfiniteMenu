@@ -41,7 +41,8 @@ export class MenuItemComponent {
     }
   }
 
-  GetBackgoundColor(Loc: number | undefined) {
+  GetBackgoundColor(MenuData: MenuData) {
+    let Loc = MenuData.MenuLoc;
     let localRGB = structuredClone(this.RGB);
     if (!Loc)
       Loc = 1;
@@ -50,16 +51,18 @@ export class MenuItemComponent {
     localRGB.b = localRGB.b * (Loc * this.ShadeMultiplier);
 
     let currentMenuStyle = structuredClone(this.MenuStyles.find(x => x.Location == Loc));
-    if (currentMenuStyle) {
+
+    if (currentMenuStyle && currentMenuStyle.BackgroundColor) {
       return currentMenuStyle.BackgroundColor;
     }
 
     return `rgb(${localRGB.r}, ${localRGB.g}, ${localRGB.b})`;
   }
 
-  GetTextColor(Loc: number | undefined) {
-    let currentMenuStyle = structuredClone(this.MenuStyles.find(x => x.Location == Loc));
-    if (currentMenuStyle) {
+  GetTextColor(MenuData: MenuData) {
+    let currentMenuStyle = structuredClone(this.MenuStyles.find(x => x.Location == MenuData.MenuLoc));
+
+    if (currentMenuStyle && currentMenuStyle.TextColor) {
       return currentMenuStyle.TextColor;
     }
 
@@ -68,11 +71,29 @@ export class MenuItemComponent {
 
   GetPadding(Loc: number | undefined) {
     let currentMenuStyle = structuredClone(this.MenuStyles.find(x => x.Location == Loc));
-    if (currentMenuStyle) {
+    if (currentMenuStyle && currentMenuStyle.PaddingLeft) {
       return currentMenuStyle.PaddingLeft;
     }
 
     return `0px`;
+  }
+
+  GetOnHoverBackgroundColor(Loc: number | undefined) {
+    let currentMenuStyle = structuredClone(this.MenuStyles.find(x => x.Location == Loc));
+    if (currentMenuStyle && currentMenuStyle.OnHoverBackgroundColor) {
+      return currentMenuStyle.OnHoverBackgroundColor;
+    }
+
+    return `inherit`;
+  }
+
+  GetOnHoverTextColor(Loc: number | undefined) {
+    let currentMenuStyle = structuredClone(this.MenuStyles.find(x => x.Location == Loc));
+    if (currentMenuStyle && currentMenuStyle.OnHoverTextColor) {
+      return currentMenuStyle.OnHoverTextColor;
+    }
+
+    return `inherit`;
   }
 
   GetMenuTitleWidth(MenuData: MenuData) {
@@ -107,7 +128,12 @@ export class MenuItemComponent {
   }
 
   _MenuSelected(MenuData: MenuData) {
-    this.MenuSelected.emit(MenuData);
+    if(MenuData.OpenSubOnAnyClick){
+      this.ToggleOption(MenuData.Id);
+    }
+    else{
+      this.MenuSelected.emit(MenuData);
+    }
   }
 
   _MenuOpenCloseChanged(MenuData: MenuData) {
@@ -133,14 +159,20 @@ export class MenuItemComponent {
     tooltip.style.padding = "10px";
     tooltip.style.borderRadius = "5px";
     document.getElementsByTagName("body")[0].appendChild(tooltip);
+
+    Element.style.backgroundColor = this.GetOnHoverBackgroundColor(MenuData.MenuLoc);
+    Element.style.color = this.GetOnHoverTextColor(MenuData.MenuLoc);
   }
 
-  HoverOnMenu_MouseLeave(MenuData: MenuData, Element: Element) {
+  HoverOnMenu_MouseLeave(MenuData: MenuData, Element: HTMLElement) {
     let elements = document.getElementsByClassName(MenuData.Id + "ElementId");
     for (let index = 0; index < elements.length; index++) {
       const element = elements[index];
       if (element)
         element.remove();
     }
+
+    Element.style.backgroundColor = this.GetBackgoundColor(MenuData);
+    Element.style.color = this.GetTextColor(MenuData);
   }
 }

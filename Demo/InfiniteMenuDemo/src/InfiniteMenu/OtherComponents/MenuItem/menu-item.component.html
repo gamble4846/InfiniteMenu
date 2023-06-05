@@ -1,7 +1,7 @@
 <ng-container *ngIf="MenuModel">
-    <div [ngClass]="{'open': Menu.IsOpen}" class="OptionContainer" *ngFor="let Menu of MenuModel" #OptionContainer [ngStyle]="{'background-color': GetBackgoundColor(Menu.MenuLoc) }">
-        <div class="OptionHead" #OptionHead [ngStyle]="{'color': GetTextColor(Menu.MenuLoc) }" (mouseenter)="HoverOnMenu_MouseEnter(Menu, OptionHead)" (mouseleave)="HoverOnMenu_MouseLeave(Menu, OptionHead)">
-            <div style="padding: 10px; flex-grow: 2;display: flex; justify-content: left;" (click)="_MenuSelected(Menu)" [ngStyle]="{'padding-left': 'calc(10px + ' + GetPadding(Menu.MenuLoc) +')', 'width': GetMenuHeadWithWithOUtArrow(Menu)}">
+    <div [ngClass]="{'open': Menu.IsOpen}" class="OptionContainer" *ngFor="let Menu of MenuModel" #OptionContainer [ngStyle]="{'background-color': GetBackgoundColor(Menu)}">
+        <div class="OptionHead" #OptionHead [ngStyle]="{'color': GetTextColor(Menu) }" (mouseenter)="HoverOnMenu_MouseEnter(Menu, OptionHead)" (mouseleave)="HoverOnMenu_MouseLeave(Menu, OptionHead)">
+            <div class="TitleOuterContainer" (click)="_MenuSelected(Menu)" [ngStyle]="{'padding-left': 'calc(10px + ' + GetPadding(Menu.MenuLoc) +')', 'width': GetMenuHeadWithWithOUtArrow(Menu)}">
                 <div class="IconsContainer" [ngClass]="{'ShowOnlyIcon': ShowOnlyIcon}">
                     <ng-container *ngIf="Menu.IconType == IconType.SVG && Menu.Icon">
                         <div [innerHTML]="ByPassSecurityTrustHtml(Menu.Icon)" [ngStyle]="{ 'height': IconHeight, 'width': IconWidth }"></div>

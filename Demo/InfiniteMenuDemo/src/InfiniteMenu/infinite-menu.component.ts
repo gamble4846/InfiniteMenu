@@ -59,5 +59,16 @@ export class InfiniteMenuComponent {
   _MenuOpenCloseChanged(MenuData:MenuData){
     this.MenuOpenCloseChanged.emit(MenuData);
   }
-  
+
+  UnselectAll(){
+    this.MenuModel.forEach((MenuData:MenuData) => {
+      this._UnselectAll(MenuData);
+    });
+  }
+
+  private _UnselectAll(MenuData:MenuData){
+    MenuData.Children.forEach((_MenuData:MenuData) => {
+      this._UnselectAll(_MenuData);
+    })
+  }  
 }

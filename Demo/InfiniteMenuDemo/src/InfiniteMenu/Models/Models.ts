@@ -7,6 +7,7 @@ export interface MenuData {
     Id?:string,
     Icon?: string,
     IconType?: IconType,
+    OpenSubOnAnyClick?: boolean
 }
 
 export interface RGBModel{
@@ -23,7 +24,9 @@ export enum IconType {
 
 export interface MenuStyles{
     Location:number,
-    BackgroundColor:string,
-    TextColor:string,
-    PaddingLeft:string,
+    BackgroundColor?:string,
+    TextColor?:string,
+    PaddingLeft?:string,
+    OnHoverBackgroundColor?:string,
+    OnHoverTextColor?:string,
 }

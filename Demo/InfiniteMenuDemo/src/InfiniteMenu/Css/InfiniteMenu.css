@@ -27,7 +27,6 @@
 
 .OptionContainer.open>.OptionBody {
   transition: max-height 0.25s ease-in;
-  overflow: auto;
 }
 
 .OptionContainer.open>.OptionHead .ArrowIcon {
@@ -82,5 +81,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
+}
+
+.TitleOuterContainer{
+  padding: 10px;
+  flex-grow: 2;
+  display: flex;
+  justify-content: left;
+  cursor: pointer;
 }

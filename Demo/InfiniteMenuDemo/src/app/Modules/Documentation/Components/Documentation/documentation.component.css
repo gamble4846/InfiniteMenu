@@ -1,0 +1,23 @@
+.DocumentationContainer{
+    padding: 10px;
+}
+
+.SectionHeader{
+    width: 100%;
+    border-top: 2px solid #179D9D;
+    border-bottom: 2px solid #179D9D;
+    letter-spacing: .05em;
+    font-weight: 400;
+    font-size: 2rem;
+    padding: 5px 0px;
+}
+
+.SectionContainer{
+    margin-bottom: 50px;
+}
+
+.CodeParagraph{
+    padding: 10px;
+    background-color: rgb(233, 233, 233);
+    border-radius: 5px;
+}
